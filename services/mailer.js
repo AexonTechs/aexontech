@@ -1,9 +1,20 @@
 import nodemailer from 'nodemailer';
+import sgMail from '@sendgrid/mail';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Create transporter for Zoho Mail
+// Check if SendGrid API key is available
+const useSendGrid = process.env.SENDGRID_API_KEY && process.env.SENDGRID_API_KEY.startsWith('SG.');
+
+if (useSendGrid) {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  console.log('📧 Using SendGrid API for email delivery');
+} else {
+  console.log('📧 Using SMTP for email delivery');
+}
+
+// Create transporter for Zoho Mail (fallback if SendGrid not configured)
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: parseInt(process.env.SMTP_PORT) || 465,
@@ -21,18 +32,48 @@ const transporter = nodemailer.createTransport({
   socketTimeout: 10000,
 });
 
-// Verify transporter configuration (non-blocking)
-if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+// Verify transporter configuration (non-blocking) - only if not using SendGrid
+if (!useSendGrid && process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
   transporter.verify()
     .then(() => {
-      console.log('✅ SMTP server is ready to send emails (Zoho Mail)');
+      console.log('✅ SMTP server is ready to send emails');
     })
     .catch((error) => {
       console.warn('⚠️  SMTP verification failed (emails may not work):', error.message);
-      console.warn('   Server will continue running. Check SMTP credentials and firewall settings.');
+      console.warn('   Consider using SendGrid API instead. Set SENDGRID_API_KEY in environment.');
     });
-} else {
+} else if (!useSendGrid) {
   console.warn('⚠️  SMTP credentials not configured. Email functionality will be disabled.');
+  console.warn('   Set SENDGRID_API_KEY or SMTP credentials in environment variables.');
+}
+
+// Helper function to send email via SendGrid API
+async function sendViaSendGrid(mailOptions) {
+  const msg = {
+    to: Array.isArray(mailOptions.to) ? mailOptions.to : mailOptions.to.split(',').map(e => e.trim()),
+    from: mailOptions.from || process.env.EMAIL_FROM,
+    subject: mailOptions.subject,
+    html: mailOptions.html,
+  };
+
+  try {
+    await sgMail.send(msg);
+    return { success: true };
+  } catch (error) {
+    console.error('SendGrid API error:', error.response?.body || error.message);
+    throw error;
+  }
+}
+
+// Helper function to send email via SMTP
+async function sendViaSMTP(mailOptions) {
+  try {
+    await transporter.sendMail(mailOptions);
+    return { success: true };
+  } catch (error) {
+    console.error('SMTP error:', error.message);
+    throw error;
+  }
 }
 
 // Get admin email recipients as array
@@ -98,11 +139,15 @@ export async function sendContactNotification(contactData) {
   };
 
   try {
-    await transporter.sendMail(mailOptions);
+    if (useSendGrid) {
+      await sendViaSendGrid(mailOptions);
+    } else {
+      await sendViaSMTP(mailOptions);
+    }
     console.log('✅ Contact notification email sent to admins');
     return { success: true };
   } catch (error) {
-    console.error('❌ Error sending contact notification:', error);
+    console.error('❌ Error sending contact notification:', error.message);
     return { success: false, error: error.message };
   }
 }
@@ -160,11 +205,15 @@ export async function sendContactConfirmation(contactData) {
   };
 
   try {
-    await transporter.sendMail(mailOptions);
+    if (useSendGrid) {
+      await sendViaSendGrid(mailOptions);
+    } else {
+      await sendViaSMTP(mailOptions);
+    }
     console.log('✅ Confirmation email sent to user');
     return { success: true };
   } catch (error) {
-    console.error('❌ Error sending confirmation email:', error);
+    console.error('❌ Error sending confirmation email:', error.message);
     return { success: false, error: error.message };
   }
 }
@@ -240,11 +289,15 @@ export async function sendJobApplicationNotification(applicationData, jobTitle) 
   };
 
   try {
-    await transporter.sendMail(mailOptions);
+    if (useSendGrid) {
+      await sendViaSendGrid(mailOptions);
+    } else {
+      await sendViaSMTP(mailOptions);
+    }
     console.log('✅ Job application notification email sent to admins');
     return { success: true };
   } catch (error) {
-    console.error('❌ Error sending job application notification:', error);
+    console.error('❌ Error sending job application notification:', error.message);
     return { success: false, error: error.message };
   }
 }
@@ -306,11 +359,15 @@ export async function sendApplicationConfirmation(applicationData, jobTitle) {
   };
 
   try {
-    await transporter.sendMail(mailOptions);
+    if (useSendGrid) {
+      await sendViaSendGrid(mailOptions);
+    } else {
+      await sendViaSMTP(mailOptions);
+    }
     console.log('✅ Application confirmation email sent to applicant');
     return { success: true };
   } catch (error) {
-    console.error('❌ Error sending application confirmation:', error);
+    console.error('❌ Error sending application confirmation:', error.message);
     return { success: false, error: error.message };
   }
 }
