@@ -6,22 +6,34 @@ dotenv.config();
 // Create transporter for Zoho Mail
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  secure: false, // true for 465, false for other ports
+  port: parseInt(process.env.SMTP_PORT) || 587,
+  secure: process.env.SMTP_PORT === '465', // true for 465, false for other ports
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
+  tls: {
+    rejectUnauthorized: false, // Allow self-signed certificates
+    minVersion: 'TLSv1.2'
+  },
+  connectionTimeout: 10000, // 10 seconds
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
 });
 
-// Verify transporter configuration
-transporter.verify((error, success) => {
-  if (error) {
-    console.error('❌ SMTP configuration error:', error);
-  } else {
-    console.log('✅ SMTP server is ready to send emails (Zoho Mail)');
-  }
-});
+// Verify transporter configuration (non-blocking)
+if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+  transporter.verify()
+    .then(() => {
+      console.log('✅ SMTP server is ready to send emails (Zoho Mail)');
+    })
+    .catch((error) => {
+      console.warn('⚠️  SMTP verification failed (emails may not work):', error.message);
+      console.warn('   Server will continue running. Check SMTP credentials and firewall settings.');
+    });
+} else {
+  console.warn('⚠️  SMTP credentials not configured. Email functionality will be disabled.');
+}
 
 // Get admin email recipients as array
 const getAdminEmails = () => {
