@@ -58,7 +58,11 @@ const upload = multer({
 
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://aexontech.com', 'https://www.aexontech.com']
+    ? [
+        'https://aexontech.com', 
+        'https://www.aexontech.com',
+        'https://aexontech-1.onrender.com'
+      ]
     : 'http://localhost:3000',
   credentials: true
 }));
