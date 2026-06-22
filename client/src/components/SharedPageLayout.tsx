@@ -13,7 +13,7 @@ function ThemeWrapper({ children }: { children: React.ReactNode }) {
   const isDark = theme === "dark";
   
   return (
-    <div style={{ backgroundColor: isDark ? "#0A0A0A" : "#ffffff", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: isDark ? "#072B88" : "#F7F9FC", minHeight: "100vh" }} className="transition-colors duration-300">
       {children}
     </div>
   );

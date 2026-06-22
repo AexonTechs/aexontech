@@ -11,6 +11,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import AexonAIChat from "@/components/AexonAIChat";
+import Projects from "@/components/projects";
 
 export default function ClientLayout() {
   return (
@@ -21,6 +22,7 @@ export default function ClientLayout() {
         <Hero />
         <Services />
         <Products />
+        <Projects />
         <Process />
         <About />
         <Contact />

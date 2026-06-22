@@ -20,26 +20,30 @@ export default function AboutPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-block px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
-              <span className={`text-sm uppercase tracking-wider ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+            <div className={`inline-block px-4 py-2 rounded-full border mb-6 ${
+              isDark 
+                ? 'bg-[#0A3DFF]/10 border-[#00B4FF]/20 text-[#00B4FF]' 
+                : 'bg-[#E6ECF5] border-[#0A3DFF]/20 text-[#072B88]'
+            } font-semibold`}>
+              <span className="text-xs uppercase tracking-wider">
                 WHO WE ARE
               </span>
             </div>
-            <h1 className={`text-5xl lg:text-7xl font-bold mb-8 leading-tight ${isDark ? 'text-white' : 'text-black'}`}>
+            <h1 className={`text-5xl lg:text-7xl font-bold mb-8 leading-tight ${isDark ? 'text-white' : 'text-[#072B88]'}`}>
               Engineering the <br />
-              <span className={isDark ? 'text-white/60' : 'text-black/60'}>AI-Native Future</span>
+              <span className={isDark ? 'text-[#00B4FF]' : 'text-[#1A56F0]'}>AI-Native Future</span>
             </h1>
-            <p className={`text-xl leading-relaxed mb-8 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+            <p className={`text-xl leading-relaxed mb-8 ${isDark ? 'text-[#E6ECF5]/80' : 'text-[#5B6B82]'}`}>
               Aexon is a premier engineering partner for ambitious companies. We specialize in building intelligent digital systems that don't just exist, but evolve.
             </p>
             <div className="flex flex-wrap gap-4">
-              <div className={`p-6 rounded-2xl border ${isDark ? 'bg-white/5 border-white/10' : 'bg-black/5 border-black/10'}`}>
-                <h3 className={`text-3xl font-bold mb-1 ${isDark ? 'text-white' : 'text-black'}`}>99.9%</h3>
-                <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>System Reliability</p>
+              <div className={`p-6 rounded-2xl border ${isDark ? 'bg-[#0A3DFF]/10 border-[#00B4FF]/20' : 'bg-white border-[#E6ECF5] shadow-sm'}`}>
+                <h3 className={`text-3xl font-bold mb-1 ${isDark ? 'text-[#00B4FF]' : 'text-[#0A3DFF]'}`}>99.9%</h3>
+                <p className={`text-sm ${isDark ? 'text-[#E6ECF5]/70' : 'text-[#5B6B82]'}`}>System Reliability</p>
               </div>
-              <div className={`p-6 rounded-2xl border ${isDark ? 'bg-white/5 border-white/10' : 'bg-black/5 border-black/10'}`}>
-                <h3 className={`text-3xl font-bold mb-1 ${isDark ? 'text-white' : 'text-black'}`}>10+</h3>
-                <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>AI Specializations</p>
+              <div className={`p-6 rounded-2xl border ${isDark ? 'bg-[#0A3DFF]/10 border-[#00B4FF]/20' : 'bg-white border-[#E6ECF5] shadow-sm'}`}>
+                <h3 className={`text-3xl font-bold mb-1 ${isDark ? 'text-[#00B4FF]' : 'text-[#0A3DFF]'}`}>10+</h3>
+                <p className={`text-sm ${isDark ? 'text-[#E6ECF5]/70' : 'text-[#5B6B82]'}`}>AI Specializations</p>
               </div>
             </div>
           </motion.div>
@@ -49,7 +53,7 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative h-[400px] lg:h-[600px] rounded-3xl overflow-hidden"
+            className="relative h-[400px] lg:h-[600px] rounded-3xl overflow-hidden shadow-xl"
           >
             <Image
               src="/digital-transformation.png"
@@ -57,7 +61,7 @@ export default function AboutPage() {
               fill
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#072B88]/60 to-transparent" />
           </motion.div>
         </div>
 
@@ -93,16 +97,18 @@ function ValueCard({ title, description, isDark, delay }: any) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay, duration: 0.5 }}
-      className={`p-10 rounded-3xl border ${
-        isDark ? 'bg-white/[0.03] border-white/10 hover:bg-white/[0.05]' : 'bg-black/[0.03] border-black/10 hover:bg-white'
-      } transition-all group`}
+      className={`p-10 rounded-3xl border hover:-translate-y-1 transition-all duration-300 group ${
+        isDark 
+          ? 'bg-[#0A3DFF]/5 border-[#00B4FF]/10 hover:border-[#00D4B8] hover:bg-[#0A3DFF]/10' 
+          : 'bg-white border-[#E6ECF5] shadow-sm hover:border-[#00D4B8] hover:shadow-md'
+      }`}
     >
-      <h3 className={`text-2xl font-bold mb-4 ${isDark ? 'text-white' : 'text-black'}`}>{title}</h3>
-      <p className={`leading-relaxed mb-6 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{description}</p>
-      <motion.div whileHover={{ x: 5 }} className="inline-flex items-center gap-2 cursor-pointer">
-        <span className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-black'}`}>Read more</span>
-        <ArrowRight size={16} className={isDark ? 'text-white' : 'text-black'} />
-      </motion.div>
+      <h3 className={`text-2xl font-bold mb-4 ${isDark ? 'text-white' : 'text-[#072B88]'}`}>{title}</h3>
+      <p className={`leading-relaxed mb-6 ${isDark ? 'text-[#E6ECF5]/80' : 'text-[#5B6B82]'}`}>{description}</p>
+      <div className="inline-flex items-center gap-2 cursor-pointer">
+        <span className={`text-sm font-semibold group-hover:text-[#00B4FF] transition-colors duration-300 ${isDark ? 'text-white' : 'text-[#0A3DFF]'}`}>Read more</span>
+        <ArrowRight size={16} className={`group-hover:translate-x-1 group-hover:text-[#00B4FF] transition-all duration-300 ${isDark ? 'text-white' : 'text-[#0A3DFF]'}`} />
+      </div>
     </motion.div>
   );
 }

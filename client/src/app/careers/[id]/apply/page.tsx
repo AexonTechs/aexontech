@@ -130,7 +130,7 @@ export default function JobApplicationPage() {
     return (
       <SharedPageLayout>
         <div className="min-h-screen flex items-center justify-center">
-          <div className="text-white">Loading...</div>
+          <div className={`font-semibold ${isDark ? 'text-white' : 'text-[#072B88]'}`}>Loading...</div>
         </div>
       </SharedPageLayout>
     );
@@ -144,8 +144,10 @@ export default function JobApplicationPage() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           onClick={() => router.push('/careers')}
-          className={`flex items-center gap-2 mb-8 px-4 py-2 rounded-lg transition-all ${
-            isDark ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-600 hover:text-black hover:bg-black/5'
+          className={`flex items-center gap-2 mb-8 px-4 py-2 rounded-lg transition-all font-semibold ${
+            isDark 
+              ? 'text-[#E6ECF5]/75 hover:text-white hover:bg-[#0A3DFF]/10' 
+              : 'text-[#5B6B82] hover:text-[#072B88] hover:bg-[#E6ECF5]'
           }`}
         >
           <ArrowLeft size={20} />
@@ -157,47 +159,47 @@ export default function JobApplicationPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className={`p-8 rounded-2xl border mb-8 ${
-            isDark ? 'bg-white/[0.03] border-white/10' : 'bg-white border-black/10 shadow-lg'
+            isDark ? 'bg-[#0A3DFF]/5 border-[#00B4FF]/10' : 'bg-white border-[#E6ECF5] shadow-lg'
           }`}
         >
           <div className="mb-6">
-            <span className="text-xs font-bold uppercase tracking-widest text-blue-500 mb-2 block">
+            <span className={`text-xs font-bold uppercase tracking-widest mb-2 block ${isDark ? 'text-[#00B4FF]' : 'text-[#1A56F0]'}`}>
               {job.department}
             </span>
-            <h1 className={`text-4xl font-bold mb-4 ${isDark ? 'text-white' : 'text-black'}`}>
+            <h1 className={`text-4xl font-bold mb-4 ${isDark ? 'text-white' : 'text-[#072B88]'}`}>
               {job.title}
             </h1>
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-2">
-                <Clock size={18} className="text-gray-500" />
-                <span className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{job.type}</span>
+                <Clock size={18} className={isDark ? 'text-[#00B4FF]' : 'text-[#0A3DFF]'} />
+                <span className={`text-sm ${isDark ? 'text-[#E6ECF5]/80' : 'text-[#5B6B82]'}`}>{job.type}</span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin size={18} className="text-gray-500" />
-                <span className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{job.location}</span>
+                <MapPin size={18} className={isDark ? 'text-[#00B4FF]' : 'text-[#0A3DFF]'} />
+                <span className={`text-sm ${isDark ? 'text-[#E6ECF5]/80' : 'text-[#5B6B82]'}`}>{job.location}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Briefcase size={18} className="text-gray-500" />
-                <span className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{job.department}</span>
+                <Briefcase size={18} className={isDark ? 'text-[#00B4FF]' : 'text-[#0A3DFF]'} />
+                <span className={`text-sm ${isDark ? 'text-[#E6ECF5]/80' : 'text-[#5B6B82]'}`}>{job.department}</span>
               </div>
             </div>
           </div>
 
           <div className="space-y-6">
             <div>
-              <h2 className={`text-xl font-semibold mb-3 ${isDark ? 'text-white' : 'text-black'}`}>
+              <h2 className={`text-xl font-semibold mb-3 ${isDark ? 'text-white' : 'text-[#072B88]'}`}>
                 About the Role
               </h2>
-              <p className={`leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+              <p className={`leading-relaxed ${isDark ? 'text-[#E6ECF5]/80' : 'text-[#5B6B82]'}`}>
                 {job.description}
               </p>
             </div>
 
             <div>
-              <h2 className={`text-xl font-semibold mb-3 ${isDark ? 'text-white' : 'text-black'}`}>
+              <h2 className={`text-xl font-semibold mb-3 ${isDark ? 'text-white' : 'text-[#072B88]'}`}>
                 Requirements
               </h2>
-              <p className={`leading-relaxed whitespace-pre-line ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+              <p className={`leading-relaxed whitespace-pre-line ${isDark ? 'text-[#E6ECF5]/80' : 'text-[#5B6B82]'}`}>
                 {job.requirements}
               </p>
             </div>
@@ -210,17 +212,17 @@ export default function JobApplicationPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
           className={`p-8 rounded-2xl border ${
-            isDark ? 'bg-white/[0.03] border-white/10' : 'bg-white border-black/10 shadow-lg'
+            isDark ? 'bg-[#0A3DFF]/5 border-[#00B4FF]/10' : 'bg-white border-[#E6ECF5] shadow-lg'
           }`}
         >
-          <h2 className={`text-2xl font-bold mb-6 ${isDark ? 'text-white' : 'text-black'}`}>
+          <h2 className={`text-2xl font-bold mb-6 ${isDark ? 'text-white' : 'text-[#072B88]'}`}>
             Apply for this Position
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                <label className={`block text-sm font-semibold mb-2 ${isDark ? 'text-[#E6ECF5]/80' : 'text-[#5B6B82]'}`}>
                   Full Name *
                 </label>
                 <input
@@ -228,17 +230,17 @@ export default function JobApplicationPage() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   required
-                  className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
+                  className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-[#00B4FF] focus:border-[#00B4FF] transition-all duration-300 ${
                     isDark 
-                      ? 'bg-white/5 border-white/10 text-white placeholder-gray-500' 
-                      : 'bg-white border-gray-300 text-black placeholder-gray-400'
+                      ? 'bg-[#0A3DFF]/10 border-[#00B4FF]/20 text-white placeholder-[#E6ECF5]/40' 
+                      : 'bg-white border-[#E6ECF5] text-[#072B88] placeholder-[#5B6B82]/50'
                   }`}
                   placeholder="John Doe"
                 />
               </div>
 
               <div>
-                <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                <label className={`block text-sm font-semibold mb-2 ${isDark ? 'text-[#E6ECF5]/80' : 'text-[#5B6B82]'}`}>
                   Email Address *
                 </label>
                 <input
@@ -246,10 +248,10 @@ export default function JobApplicationPage() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
-                  className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
+                  className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-[#00B4FF] focus:border-[#00B4FF] transition-all duration-300 ${
                     isDark 
-                      ? 'bg-white/5 border-white/10 text-white placeholder-gray-500' 
-                      : 'bg-white border-gray-300 text-black placeholder-gray-400'
+                      ? 'bg-[#0A3DFF]/10 border-[#00B4FF]/20 text-white placeholder-[#E6ECF5]/40' 
+                      : 'bg-white border-[#E6ECF5] text-[#072B88] placeholder-[#5B6B82]/50'
                   }`}
                   placeholder="john@example.com"
                 />
@@ -257,32 +259,32 @@ export default function JobApplicationPage() {
             </div>
 
             <div>
-              <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+              <label className={`block text-sm font-semibold mb-2 ${isDark ? 'text-[#E6ECF5]/80' : 'text-[#5B6B82]'}`}>
                 Phone Number
               </label>
               <input
                 type="tel"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
+                className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-[#00B4FF] focus:border-[#00B4FF] transition-all duration-300 ${
                   isDark 
-                    ? 'bg-white/5 border-white/10 text-white placeholder-gray-500' 
-                    : 'bg-white border-gray-300 text-black placeholder-gray-400'
+                    ? 'bg-[#0A3DFF]/10 border-[#00B4FF]/20 text-white placeholder-[#E6ECF5]/40' 
+                    : 'bg-white border-[#E6ECF5] text-[#072B88] placeholder-[#5B6B82]/50'
                 }`}
                 placeholder="+1 (555) 000-0000"
               />
             </div>
 
             <div>
-              <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+              <label className={`block text-sm font-semibold mb-2 ${isDark ? 'text-[#E6ECF5]/80' : 'text-[#5B6B82]'}`}>
                 Resume * (PDF or Word, max 5MB)
               </label>
-              <div className={`relative border-2 border-dashed rounded-xl p-8 text-center transition-all ${
+              <div className={`relative border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300 ${
                 formData.resume 
-                  ? 'border-green-500 bg-green-500/5' 
+                  ? 'border-emerald-500 bg-emerald-500/5' 
                   : isDark 
-                    ? 'border-white/20 hover:border-white/40 bg-white/5' 
-                    : 'border-gray-300 hover:border-gray-400 bg-gray-50'
+                    ? 'border-[#00B4FF]/20 hover:border-[#00B4FF]/50 bg-[#0A3DFF]/5' 
+                    : 'border-[#E6ECF5] hover:border-[#00B4FF]/50 bg-[#F7F9FC]'
               }`}>
                 <input
                   type="file"
@@ -293,9 +295,9 @@ export default function JobApplicationPage() {
                 />
                 {formData.resume ? (
                   <div className="flex flex-col items-center gap-3">
-                    <CheckCircle size={48} className="text-green-500" />
+                    <CheckCircle size={48} className="text-emerald-500" />
                     <div>
-                      <p className="text-green-500 font-semibold">{formData.resume.name}</p>
+                      <p className="text-emerald-500 font-semibold">{formData.resume.name}</p>
                       <p className="text-sm text-gray-500 mt-1">
                         {(formData.resume.size / 1024).toFixed(2)} KB
                       </p>
@@ -304,9 +306,9 @@ export default function JobApplicationPage() {
                   </div>
                 ) : (
                   <div className="flex flex-col items-center gap-3">
-                    <Upload size={48} className={isDark ? 'text-gray-400' : 'text-gray-500'} />
+                    <Upload size={48} className={isDark ? 'text-[#00B4FF]' : 'text-[#0A3DFF]'} />
                     <div>
-                      <p className={`font-semibold ${isDark ? 'text-white' : 'text-black'}`}>
+                      <p className={`font-semibold ${isDark ? 'text-white' : 'text-[#072B88]'}`}>
                         Click to upload or drag and drop
                       </p>
                       <p className="text-sm text-gray-500 mt-1">
@@ -319,17 +321,17 @@ export default function JobApplicationPage() {
             </div>
 
             <div>
-              <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+              <label className={`block text-sm font-semibold mb-2 ${isDark ? 'text-[#E6ECF5]/80' : 'text-[#5B6B82]'}`}>
                 Cover Letter
               </label>
               <textarea
                 value={formData.cover_letter}
                 onChange={(e) => setFormData({ ...formData, cover_letter: e.target.value })}
                 rows={6}
-                className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none ${
+                className={`w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-[#00B4FF] focus:border-[#00B4FF] transition-all duration-300 resize-none ${
                   isDark 
-                    ? 'bg-white/5 border-white/10 text-white placeholder-gray-500' 
-                    : 'bg-white border-gray-300 text-black placeholder-gray-400'
+                    ? 'bg-[#0A3DFF]/10 border-[#00B4FF]/20 text-white placeholder-[#E6ECF5]/40' 
+                    : 'bg-white border-[#E6ECF5] text-[#072B88] placeholder-[#5B6B82]/50'
                 }`}
                 placeholder="Tell us why you're a great fit for this role..."
               />
@@ -341,8 +343,8 @@ export default function JobApplicationPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className={`p-4 rounded-xl border ${
                   submitStatus.type === 'success' 
-                    ? 'bg-green-500/10 border-green-500/20 text-green-400' 
-                    : 'bg-red-500/10 border-red-500/20 text-red-400'
+                    ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' 
+                    : 'bg-rose-500/10 border-rose-500/20 text-rose-400'
                 }`}
               >
                 {submitStatus.message}
@@ -353,17 +355,17 @@ export default function JobApplicationPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex-1 px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="flex-1 px-8 py-4 bg-gradient-to-r from-[#0A3DFF] to-[#00B4FF] text-white rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-[0_0_20px_rgba(10,61,255,0.4)]"
               >
                 {isSubmitting ? 'Submitting...' : 'Submit Application'}
               </button>
               <button
                 type="button"
                 onClick={() => router.push('/careers')}
-                className={`px-8 py-4 rounded-xl font-semibold transition-all ${
+                className={`px-8 py-4 rounded-xl font-bold transition-all duration-300 ${
                   isDark 
                     ? 'bg-white/10 hover:bg-white/20 text-white' 
-                    : 'bg-gray-200 hover:bg-gray-300 text-black'
+                    : 'bg-[#E6ECF5] hover:bg-[#E6ECF5]/80 text-[#072B88]'
                 }`}
               >
                 Cancel

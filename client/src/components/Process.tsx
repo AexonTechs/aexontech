@@ -49,14 +49,11 @@ export default function Process() {
   return (
     <section 
       id="process" 
-      className="relative py-32 transition-colors duration-300"
-      style={{ backgroundColor: isDark ? "#050505" : "#ffffff" }}
+      className="relative py-32 transition-colors duration-300 bg-white dark:bg-dark-navy"
     >
       {/* Background Accents */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className={`absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[120px] opacity-20 ${
-          isDark ? 'bg-blue-600/30' : 'bg-blue-300/40'
-        }`} />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[120px] opacity-15 bg-primary-blue/10 dark:bg-cyan-blue/5" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -70,17 +67,15 @@ export default function Process() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <div className="inline-block px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
-                <span className={`text-sm uppercase tracking-wider ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                  HOW WE WORK
-                </span>
+              <div className="inline-block px-4 py-2 rounded-full bg-primary-blue/5 border border-primary-blue/20 text-primary-blue dark:text-cyan-blue font-bold text-sm uppercase tracking-wider mb-6">
+                HOW WE WORK
               </div>
               
-              <h2 className={`text-5xl lg:text-6xl font-bold mb-6 leading-tight ${isDark ? "text-white" : "text-black"}`}>
+              <h2 className="text-5xl lg:text-6xl font-black mb-6 leading-tight text-dark-navy dark:text-white">
                 Our Proven <br className="hidden lg:block"/> Methodology
               </h2>
               
-              <p className={`text-lg max-w-md ${isDark ? "text-gray-400" : "text-gray-600"}`}>
+              <p className="text-lg text-slate-500 dark:text-white/60 max-w-md font-medium">
                 We follow a rigorous, engineering-first approach to transform ambitious ideas into production-ready, scalable AI systems. Scroll to see our step-by-step process.
               </p>
             </motion.div>
@@ -89,9 +84,7 @@ export default function Process() {
           {/* Right Column: Scrolling Steps */}
           <div className="lg:col-span-7 relative">
             {/* Vertical Line indicator */}
-            <div className={`absolute left-8 top-0 bottom-0 w-[2px] hidden md:block ${
-              isDark ? 'bg-white/10' : 'bg-black/10'
-            }`} />
+            <div className="absolute left-8 top-0 bottom-0 w-[2px] hidden md:block bg-slate-100 dark:bg-white/10" />
 
             <div className="space-y-24 pb-32">
               {steps.map((step, index) => {
@@ -104,42 +97,32 @@ export default function Process() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ margin: "-20% 0px -20% 0px", amount: "some" }}
                     transition={{ duration: 0.5 }}
-                    className="relative pl-0 md:pl-24"
+                    className="relative pl-0 md:pl-24 group"
                   >
                     {/* Step Number Circle (Absolute positioned on the line) */}
-                    <div className={`hidden md:flex absolute left-[15px] top-0 w-10 h-10 rounded-full items-center justify-center border-4 z-10 transition-colors duration-500 ${
-                      isDark 
-                        ? 'bg-[#050505] border-gray-800 text-gray-500 group-hover:border-white group-hover:text-white' 
-                        : 'bg-white border-gray-200 text-gray-400 group-hover:border-black group-hover:text-black'
-                    }`}>
+                    <div className="hidden md:flex absolute left-[15px] top-0 w-10 h-10 rounded-full items-center justify-center border-4 border-slate-200 dark:border-white/15 bg-white dark:bg-dark-navy text-slate-400 dark:text-white/50 group-hover:border-cyan-blue group-hover:text-primary-blue dark:group-hover:text-cyan-blue z-10 transition-all duration-500">
                       <span className="text-sm font-bold">{step.id}</span>
                     </div>
 
-                    <div className={`p-8 lg:p-10 rounded-3xl border transition-all duration-500 hover:-translate-y-2 ${
-                      isDark 
-                        ? 'bg-white/[0.03] border-white/10 hover:bg-white/[0.05] hover:border-white/20' 
-                        : 'bg-black/[0.02] border-black/10 hover:bg-white hover:shadow-xl hover:border-transparent'
-                    }`}>
+                    <div className="p-8 lg:p-10 rounded-3xl border border-slate-100 dark:border-white/10 bg-light-bg/40 dark:bg-white/5 hover:border-teal-green/50 dark:hover:border-teal-green/50 hover:bg-white dark:hover:bg-white/10 hover:shadow-xl transition-all duration-500 cursor-pointer">
                       <div className="flex items-center gap-4 mb-6">
-                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                          isDark ? 'bg-white/10 text-white' : 'bg-black/5 text-black'
-                        }`}>
+                        <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-primary-blue/5 dark:bg-white/10 text-primary-blue dark:text-cyan-blue group-hover:bg-gradient-to-br group-hover:from-primary-blue group-hover:to-cyan-blue group-hover:text-white transition-all duration-300 shadow-sm">
                           <IconComponent size={24} />
                         </div>
-                        <h3 className={`text-2xl lg:text-3xl font-bold ${isDark ? 'text-white' : 'text-black'}`}>
+                        <h3 className="text-2xl lg:text-3xl font-bold text-dark-navy dark:text-white group-hover:text-primary-blue dark:group-hover:text-cyan-blue transition-colors duration-300">
                           {step.title}
                         </h3>
                       </div>
                       
-                      <p className={`text-lg mb-8 leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                      <p className="text-base text-slate-500 dark:text-white/60 mb-8 leading-relaxed font-medium">
                         {step.description}
                       </p>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {step.details.map((detail, idx) => (
                           <div key={idx} className="flex items-center gap-3">
-                            <div className={`w-1.5 h-1.5 rounded-full ${isDark ? 'bg-blue-400' : 'bg-blue-600'}`} />
-                            <span className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                            <div className="w-2.5 h-2.5 rounded-full bg-cyan-blue animate-pulse" />
+                            <span className="text-sm font-bold text-slate-600 dark:text-white/70">
                               {detail}
                             </span>
                           </div>

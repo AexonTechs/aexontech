@@ -10,18 +10,18 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: "dark",
+  theme: "light",
   toggleTheme: () => {},
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
 
   // Initialize theme on mount
   useEffect(() => {
-    // Check localStorage for saved theme, default to dark
+    // Check localStorage for saved theme, default to light
     const savedTheme = localStorage.getItem("theme") as Theme | null;
-    const initialTheme = savedTheme || "dark";
+    const initialTheme = savedTheme || "light";
     setTheme(initialTheme);
     
     // Apply theme immediately
@@ -29,13 +29,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (initialTheme === "dark") {
       root.classList.add("dark");
       root.classList.remove("light");
-      document.body.style.backgroundColor = "#050505";
+      document.body.style.backgroundColor = "#072B88";
       document.body.style.color = "#ffffff";
     } else {
       root.classList.add("light");
       root.classList.remove("dark");
-      document.body.style.backgroundColor = "#ffffff";
-      document.body.style.color = "#0a0a0a";
+      document.body.style.backgroundColor = "#F7F9FC";
+      document.body.style.color = "#5B6B82";
     }
   }, []);
 
@@ -46,13 +46,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (theme === "dark") {
       root.classList.add("dark");
       root.classList.remove("light");
-      document.body.style.backgroundColor = "#050505";
+      document.body.style.backgroundColor = "#072B88";
       document.body.style.color = "#ffffff";
     } else {
       root.classList.add("light");
       root.classList.remove("dark");
-      document.body.style.backgroundColor = "#ffffff";
-      document.body.style.color = "#0a0a0a";
+      document.body.style.backgroundColor = "#F7F9FC";
+      document.body.style.color = "#5B6B82";
     }
     
     localStorage.setItem("theme", theme);

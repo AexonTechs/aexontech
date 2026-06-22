@@ -140,29 +140,29 @@ export default function AexonAIChat() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 z-50 group"
+            className="fixed bottom-6 right-6 z-50 group cursor-pointer"
           >
             <div className="relative">
               {/* Glow effect */}
-              <div className="absolute inset-0 bg-white rounded-full blur-xl opacity-30 group-hover:opacity-50 transition-opacity" />
+              <div className="absolute inset-0 bg-primary-blue rounded-full blur-xl opacity-30 group-hover:opacity-50 transition-opacity" />
               
               {/* Button */}
-              <div className="relative bg-white p-4 rounded-full shadow-2xl border border-white/20">
-                <Sparkles size={28} className="text-black" />
+              <div className="relative bg-gradient-to-br from-primary-blue to-cyan-blue p-4 rounded-full shadow-2xl border border-white/20 text-white">
+                <Sparkles size={28} className="text-white" />
               </div>
-
+ 
               {/* Pulse animation */}
-              <div className="absolute inset-0 rounded-full bg-white animate-ping opacity-10" />
+              <div className="absolute inset-0 rounded-full bg-cyan-blue animate-ping opacity-10" />
             </div>
-
+ 
             {/* Tooltip */}
-            <div className="absolute bottom-full right-0 mb-2 px-3 py-1 bg-white text-black text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity border border-white/20">
+            <div className="absolute bottom-full right-0 mb-2 px-3 py-1.5 bg-white text-dark-navy text-xs font-bold rounded-lg shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity border border-slate-100">
               Chat with Aexon AI
             </div>
           </motion.button>
         )}
       </AnimatePresence>
-
+ 
       {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
@@ -176,30 +176,28 @@ export default function AexonAIChat() {
             <div
               className={`flex flex-col h-full rounded-2xl shadow-2xl border overflow-hidden ${
                 isDark
-                  ? "bg-zinc-900/95 border-white/10 backdrop-blur-xl"
-                  : "bg-white/95 border-gray-200 backdrop-blur-xl"
+                  ? "bg-dark-navy/95 border-white/10 backdrop-blur-xl text-white"
+                  : "bg-white/95 border-slate-200/60 backdrop-blur-xl text-slate-700"
               }`}
             >
               {/* Header */}
               <div className={`p-4 flex items-center justify-between border-b ${
-                isDark ? "bg-white/5 border-white/10" : "bg-black/5 border-black/10"
+                isDark ? "bg-white/5 border-white/10" : "bg-slate-50 border-slate-100"
               }`}>
                 <div className="flex items-center gap-3">
                   <div className="relative">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                      isDark ? "bg-white/10" : "bg-black/10"
-                    }`}>
-                      <Sparkles size={20} className={isDark ? "text-white" : "text-black"} />
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-primary-blue/5 text-primary-blue dark:bg-white/10 dark:text-cyan-blue">
+                      <Sparkles size={20} className={isDark ? "text-white" : "text-primary-blue dark:text-cyan-blue"} />
                     </div>
-                    <div className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 ${
-                      isDark ? "bg-white border-zinc-900" : "bg-black border-white"
+                    <div className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 bg-teal-green ${
+                      isDark ? "border-dark-navy" : "border-white"
                     }`} />
                   </div>
                   <div>
-                    <h3 className={`font-semibold ${isDark ? "text-white" : "text-black"}`}>
+                    <h3 className="font-bold text-dark-navy dark:text-white text-sm">
                       Aexon AI
                     </h3>
-                    <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-600"}`}>
+                    <p className={`text-[10px] font-semibold ${isDark ? "text-gray-400" : "text-slate-500"}`}>
                       Always here to help
                     </p>
                   </div>
@@ -208,22 +206,22 @@ export default function AexonAIChat() {
                   <button
                     onClick={() => setIsOpen(false)}
                     className={`p-2 rounded-lg transition-all ${
-                      isDark ? "hover:bg-white/10" : "hover:bg-black/10"
+                      isDark ? "hover:bg-white/10" : "hover:bg-slate-100"
                     }`}
                   >
-                    <Minimize2 size={18} className={isDark ? "text-gray-400" : "text-gray-600"} />
+                    <Minimize2 size={18} className={isDark ? "text-gray-400" : "text-slate-500"} />
                   </button>
                   <button
                     onClick={() => setIsOpen(false)}
                     className={`p-2 rounded-lg transition-all ${
-                      isDark ? "hover:bg-white/10" : "hover:bg-black/10"
+                      isDark ? "hover:bg-white/10" : "hover:bg-slate-100"
                     }`}
                   >
-                    <X size={18} className={isDark ? "text-gray-400" : "text-gray-600"} />
+                    <X size={18} className={isDark ? "text-gray-400" : "text-slate-500"} />
                   </button>
                 </div>
               </div>
-
+ 
               {/* Messages */}
               <div className="flex-1 overflow-y-auto p-4 space-y-4">
                 {messages.map((message) => (
@@ -236,26 +234,22 @@ export default function AexonAIChat() {
                     }`}
                   >
                     <div
-                      className={`max-w-[80%] rounded-2xl px-4 py-2 ${
+                      className={`max-w-[80%] rounded-2xl px-4 py-2.5 shadow-sm text-sm font-semibold leading-relaxed ${
                         message.sender === "user"
-                          ? isDark 
-                            ? "bg-white text-black"
-                            : "bg-black text-white"
+                          ? "bg-gradient-to-r from-primary-blue to-cyan-blue text-white"
                           : isDark
                           ? "bg-white/10 text-white"
-                          : "bg-gray-100 text-black"
+                          : "bg-slate-100 text-slate-800"
                       }`}
                     >
                       <p className="text-sm leading-relaxed">{message.text}</p>
                       <p
-                        className={`text-xs mt-1 ${
+                        className={`text-[10px] mt-1.5 ${
                           message.sender === "user"
-                            ? isDark
-                              ? "text-black/60"
-                              : "text-white/60"
+                            ? "text-white/60"
                             : isDark
                             ? "text-gray-400"
-                            : "text-gray-500"
+                            : "text-slate-500"
                         }`}
                       >
                         {message.timestamp.toLocaleTimeString([], {
@@ -266,7 +260,7 @@ export default function AexonAIChat() {
                     </div>
                   </motion.div>
                 ))}
-
+ 
                 {/* Typing Indicator */}
                 {isTyping && (
                   <motion.div
@@ -276,25 +270,25 @@ export default function AexonAIChat() {
                   >
                     <div
                       className={`rounded-2xl px-4 py-3 ${
-                        isDark ? "bg-white/10" : "bg-gray-100"
+                        isDark ? "bg-white/10" : "bg-slate-100"
                       }`}
                     >
                       <div className="flex gap-1">
                         <div
                           className={`w-2 h-2 rounded-full animate-bounce ${
-                            isDark ? "bg-white/60" : "bg-gray-400"
+                            isDark ? "bg-white/60" : "bg-slate-400"
                           }`}
                           style={{ animationDelay: "0ms" }}
                         />
                         <div
                           className={`w-2 h-2 rounded-full animate-bounce ${
-                            isDark ? "bg-white/60" : "bg-gray-400"
+                            isDark ? "bg-white/60" : "bg-slate-400"
                           }`}
                           style={{ animationDelay: "150ms" }}
                         />
                         <div
                           className={`w-2 h-2 rounded-full animate-bounce ${
-                            isDark ? "bg-white/60" : "bg-gray-400"
+                            isDark ? "bg-white/60" : "bg-slate-400"
                           }`}
                           style={{ animationDelay: "300ms" }}
                         />
@@ -302,14 +296,14 @@ export default function AexonAIChat() {
                     </div>
                   </motion.div>
                 )}
-
+ 
                 <div ref={messagesEndRef} />
               </div>
-
+ 
               {/* Input */}
               <div
                 className={`p-4 border-t ${
-                  isDark ? "border-white/10" : "border-gray-200"
+                  isDark ? "border-white/10" : "border-slate-100"
                 }`}
               >
                 <div className="flex gap-2">
@@ -319,27 +313,23 @@ export default function AexonAIChat() {
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyPress={handleKeyPress}
                     placeholder="Type your message..."
-                    className={`flex-1 px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
+                    className={`flex-1 px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-primary-blue/15 transition-all font-semibold ${
                       isDark
-                        ? "bg-white/5 border-white/10 text-white placeholder-gray-500"
-                        : "bg-gray-50 border-gray-200 text-black placeholder-gray-400"
+                        ? "bg-white/5 border-white/10 text-white placeholder-white/30"
+                        : "bg-slate-50 border-slate-200 text-slate-700 placeholder-slate-400"
                     }`}
                   />
                   <button
                     onClick={handleSendMessage}
                     disabled={!inputValue.trim()}
-                    className={`px-4 py-3 rounded-xl hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all ${
-                      isDark 
-                        ? "bg-white text-black hover:bg-gray-100"
-                        : "bg-black text-white hover:bg-gray-900"
-                    }`}
+                    className="px-4 py-3 rounded-xl bg-gradient-to-r from-primary-blue to-cyan-blue text-white hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
                   >
                     <Send size={20} />
                   </button>
                 </div>
                 <p
-                  className={`text-xs mt-2 text-center ${
-                    isDark ? "text-gray-500" : "text-gray-400"
+                  className={`text-[10px] mt-2.5 text-center font-bold uppercase tracking-wider ${
+                    isDark ? "text-gray-500" : "text-slate-400"
                   }`}
                 >
                   Powered by Aexon AI

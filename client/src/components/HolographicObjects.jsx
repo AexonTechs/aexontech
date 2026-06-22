@@ -108,25 +108,25 @@ function Cube({ position }) {
 function Scene() {
   return (
     <>
-      {/* Environment gives us free HDR reflections */}
-      <Environment preset="city" />
+      {/* Environment gives us free HDR reflections — backgroundBlurriness ensures only reflections not background shows */}
+      <Environment preset="city" background={false} />
 
       {/* Subtle ambient */}
-      <ambientLight intensity={0.2} />
+      <ambientLight intensity={0.4} />
 
       {/* Key light from top-left */}
       <directionalLight
         position={[-4, 6, 4]}
-        intensity={2}
-        color="#ffffff"
+        intensity={2.5}
+        color="#aaccff"
         castShadow
       />
 
-      {/* Rim light from right — deep blue */}
-      <pointLight position={[5, 1, -3]} intensity={3} color="#2244ff" />
+      {/* Rim light from right — deep cyan */}
+      <pointLight position={[5, 1, -3]} intensity={4} color="#00B4FF" />
 
-      {/* Fill light bottom */}
-      <pointLight position={[0, -4, 2]} intensity={1.5} color="#aa22ff" />
+      {/* Fill light bottom — teal accent */}
+      <pointLight position={[0, -4, 2]} intensity={2} color="#00D4B8" />
 
       {/* Objects — positions mirror the image layout */}
       <Torus   position={[-1.2,  1.6, 0]} />
@@ -167,11 +167,16 @@ export default function HolographicObjects({
       <Canvas
         shadows
         camera={{ position: [0, 0, 8], fov: 45 }}
+        style={{ background: "transparent" }}
         gl={{
           antialias: true,
           toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 1.2,
+          toneMappingExposure: 1.3,
           alpha: true,
+        }}
+        onCreated={({ scene, gl }) => {
+          scene.background = null;
+          gl.setClearColor(0x000000, 0);
         }}
       >
         <Suspense fallback={null}>
