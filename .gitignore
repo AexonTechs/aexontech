@@ -1,9 +1,10 @@
 # Environment files
 .env
-.env.*
+.env.local
+.env.production
+.env.development
+.env.test
 !.env.example
-*.env
-*.env.*
 
 # Markdown documentation files
 *.md

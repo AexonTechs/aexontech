@@ -19,6 +19,21 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const DEFAULT_CORS_ORIGINS = [
+  'http://13.126.130.137',
+  'https://13.126.130.137',
+  'https://aexontech.com',
+  'https://www.aexontech.com',
+  'http://localhost:3000',
+  'http://127.0.0.1:3000'
+];
+const allowedOrigins = (
+  process.env.CORS_ORIGINS
+    ? process.env.CORS_ORIGINS.split(',')
+    : DEFAULT_CORS_ORIGINS
+).map((origin) => origin.trim()).filter(Boolean);
+
+app.set('trust proxy', 1);
 
 // Create uploads directory if it doesn't exist
 const uploadsDir = path.join(__dirname, 'uploads', 'resumes');
@@ -57,13 +72,13 @@ const upload = multer({
 });
 
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? [
-        'https://aexontech.com', 
-        'https://www.aexontech.com',
-        'https://aexontech-1.onrender.com'
-      ]
-    : 'http://localhost:3000',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(null, false);
+  },
   credentials: true
 }));
 app.use(express.json());
@@ -72,7 +87,8 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: { 
-    secure: false, // set to true in production with HTTPS
+    secure: process.env.COOKIE_SECURE === 'true',
+    sameSite: process.env.COOKIE_SAMESITE || 'lax',
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }

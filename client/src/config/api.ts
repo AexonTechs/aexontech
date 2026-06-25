@@ -1,5 +1,9 @@
 // API Configuration
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://aexontech.onrender.com';
+const DEFAULT_API_BASE_URL = 'http://13.126.130.137:5000';
+
+export const API_BASE_URL = (
+  process.env.NEXT_PUBLIC_API_URL || DEFAULT_API_BASE_URL
+).replace(/\/$/, '');
 
 export const API_ENDPOINTS = {
   // Auth

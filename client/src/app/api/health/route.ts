@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://aexontech.onrender.com';
+const API_BASE_URL = (
+  process.env.NEXT_PUBLIC_API_URL || 'http://13.126.130.137:5000'
+).replace(/\/$/, '');
 
 export async function GET() {
   const clientStatus = {
