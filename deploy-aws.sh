@@ -38,8 +38,7 @@ info "Preparing ${APP_NAME} for AWS EC2 at ${PUBLIC_URL}"
 
 if command -v apt-get >/dev/null 2>&1; then
   info "Installing system packages"
-  $SUDO apt-get update
-  $SUDO apt-get install -y curl ca-certificates gnupg nginx build-essential certbot python3-certbot-nginx
+  $SUDO apt-get install -y curl ca-certificates gnupg nginx build-essential
 
   if ! command -v node >/dev/null 2>&1 || ! node -e "process.exit(Number(process.versions.node.split('.')[0]) >= ${NODE_MAJOR} ? 0 : 1)"; then
     info "Installing Node.js ${NODE_MAJOR}"
@@ -110,7 +109,7 @@ server {
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
     }
 
     location / {
@@ -119,7 +118,7 @@ server {
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection "upgrade";
     }
@@ -136,11 +135,6 @@ NGINX
   else
     $SUDO service nginx start || true
     $SUDO service nginx reload
-  fi
-
-  if command -v certbot >/dev/null 2>&1; then
-    info "Configuring SSL with Certbot for aexontech.com"
-    $SUDO certbot --nginx -n -d aexontech.com -d www.aexontech.com --redirect --agree-tos -m info@aexontech.com || warn "Certbot failed. You may need to run it manually: sudo certbot --nginx"
   fi
 else
   warn "Nginx was not found. PM2 services are running, but no reverse proxy was configured."
