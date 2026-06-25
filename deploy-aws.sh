@@ -124,8 +124,11 @@ NGINX
   $SUDO rm -f /etc/nginx/sites-enabled/default
   $SUDO nginx -t
   if command -v systemctl >/dev/null 2>&1; then
+    $SUDO systemctl start nginx || true
+    $SUDO systemctl enable nginx || true
     $SUDO systemctl reload nginx
   else
+    $SUDO service nginx start || true
     $SUDO service nginx reload
   fi
 else
