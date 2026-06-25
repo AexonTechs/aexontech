@@ -140,7 +140,7 @@ NGINX
 
   if command -v certbot >/dev/null 2>&1; then
     info "Configuring SSL with Certbot for aexontech.com"
-    $SUDO certbot --nginx -n -d aexontech.com -d www.aexontech.com --redirect --agree-tos -m admin@aexontech.com || warn "Certbot failed. You may need to run it manually: sudo certbot --nginx"
+    $SUDO certbot --nginx -n -d aexontech.com -d www.aexontech.com --redirect --agree-tos -m info@aexontech.com || warn "Certbot failed. You may need to run it manually: sudo certbot --nginx"
   fi
 else
   warn "Nginx was not found. PM2 services are running, but no reverse proxy was configured."
