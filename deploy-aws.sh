@@ -3,9 +3,9 @@ set -Eeuo pipefail
 
 APP_NAME="${APP_NAME:-aexon}"
 APP_DIR="${APP_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)}"
-PUBLIC_HOST="${PUBLIC_HOST:-13.126.130.137}"
-PUBLIC_PROTO="${PUBLIC_PROTO:-http}"
-PUBLIC_URL="${NEXT_PUBLIC_API_URL:-${PUBLIC_PROTO}://${PUBLIC_HOST}:5000}"
+PUBLIC_HOST="${PUBLIC_HOST:-aexontech.com}"
+PUBLIC_PROTO="${PUBLIC_PROTO:-https}"
+PUBLIC_URL="${NEXT_PUBLIC_API_URL:-${PUBLIC_PROTO}://${PUBLIC_HOST}}"
 BACKEND_PORT="${BACKEND_PORT:-5001}"
 FRONTEND_PORT="${FRONTEND_PORT:-3000}"
 NODE_MAJOR="${NODE_MAJOR:-20}"
@@ -39,7 +39,7 @@ info "Preparing ${APP_NAME} for AWS EC2 at ${PUBLIC_URL}"
 if command -v apt-get >/dev/null 2>&1; then
   info "Installing system packages"
   $SUDO apt-get update
-  $SUDO apt-get install -y curl ca-certificates gnupg nginx build-essential
+  $SUDO apt-get install -y curl ca-certificates gnupg nginx build-essential certbot python3-certbot-nginx
 
   if ! command -v node >/dev/null 2>&1 || ! node -e "process.exit(Number(process.versions.node.split('.')[0]) >= ${NODE_MAJOR} ? 0 : 1)"; then
     info "Installing Node.js ${NODE_MAJOR}"
@@ -93,7 +93,7 @@ if command -v nginx >/dev/null 2>&1; then
   NGINX_TMP="$(mktemp)"
   cat > "$NGINX_TMP" <<NGINX
 server {
-    listen 5000;
+    listen 80;
     server_name ${PUBLIC_HOST} aexontech.com www.aexontech.com;
 
     client_max_body_size 10m;
@@ -130,6 +130,11 @@ NGINX
   else
     $SUDO service nginx start || true
     $SUDO service nginx reload
+  fi
+
+  if command -v certbot >/dev/null 2>&1; then
+    info "Configuring SSL with Certbot for aexontech.com"
+    $SUDO certbot --nginx -n -d aexontech.com -d www.aexontech.com --redirect --agree-tos -m admin@aexontech.com || warn "Certbot failed. You may need to run it manually: sudo certbot --nginx"
   fi
 else
   warn "Nginx was not found. PM2 services are running, but no reverse proxy was configured."

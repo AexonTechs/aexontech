@@ -1,6 +1,6 @@
-const publicHost = process.env.PUBLIC_HOST || '13.126.130.137';
-const publicProtocol = process.env.PUBLIC_PROTO || 'http';
-const publicUrl = process.env.NEXT_PUBLIC_API_URL || `${publicProtocol}://${publicHost}:5000`;
+const publicHost = process.env.PUBLIC_HOST || 'aexontech.com';
+const publicProtocol = process.env.PUBLIC_PROTO || 'https';
+const publicUrl = process.env.NEXT_PUBLIC_API_URL || `${publicProtocol}://${publicHost}`;
 const backendPort = process.env.BACKEND_PORT || '5001';
 const frontendPort = process.env.FRONTEND_PORT || '3000';
 const corsOrigins = process.env.CORS_ORIGINS || [

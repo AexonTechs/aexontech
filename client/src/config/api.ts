@@ -1,5 +1,5 @@
 // API Configuration
-const DEFAULT_API_BASE_URL = 'http://13.126.130.137:5000';
+const DEFAULT_API_BASE_URL = 'https://aexontech.com';
 
 export const API_BASE_URL = (
   process.env.NEXT_PUBLIC_API_URL || DEFAULT_API_BASE_URL
