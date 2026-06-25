@@ -90,6 +90,7 @@ fi
 
 if command -v nginx >/dev/null 2>&1; then
   info "Configuring Nginx reverse proxy"
+  $SUDO mkdir -p /var/www/html
   NGINX_TMP="$(mktemp)"
   cat > "$NGINX_TMP" <<NGINX
 server {
@@ -97,6 +98,11 @@ server {
     server_name ${PUBLIC_HOST} aexontech.com www.aexontech.com;
 
     client_max_body_size 10m;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/html;
+        allow all;
+    }
 
     location /api/ {
         proxy_pass http://127.0.0.1:${BACKEND_PORT}/api/;
