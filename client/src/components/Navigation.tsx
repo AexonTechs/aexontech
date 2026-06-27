@@ -30,26 +30,34 @@ export default function Navigation() {
         <div className="hidden md:flex items-center gap-8">
           {[
             { label: "Home", targetId: "" },
+            { label: "EdTech", href: "/edtech" },
             { label: "Services", targetId: "services" },
             { label: "Work", targetId: "products" },
             { label: "Projects", targetId: "projects" },
             { label: "Process", targetId: "process" },
             { label: "About", targetId: "about" },
             { label: "Contact", targetId: "contact" },
-          ].map(({ label, targetId }) => {
+          ].map(({ label, targetId, href }) => {
             const isHomePage = pathname === "/";
-            const href = targetId
-              ? isHomePage
-                ? `#${targetId}`
-                : `/#${targetId}`
-              : "/";
+            const link = href
+              ? href
+              : targetId
+                ? isHomePage
+                  ? `#${targetId}`
+                  : `/#${targetId}`
+                : "/";
+            
 
             return (
               <motion.a
                 key={label}
-                href={href}
+                
+                href={link}
                 onClick={(e) => {
                   if (!isHomePage) return;
+                  if (href) {
+                    return;
+                  }
 
                   if (!targetId) {
                     e.preventDefault();

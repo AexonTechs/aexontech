@@ -28,33 +28,39 @@ import {
 
 // --- Data Objects strictly matching the Landing Page ---
 
+
+
 const stats = [
-  { value: "65+", label: "Projects Completed", icon: Briefcase },
-  { value: "100+", label: "Students Assisted", icon: Users },
-  { value: "4+", label: "Years Experience", icon: Trophy },
-  { value: "95%", label: "Student Satisfaction", icon: Smile },
+  { value: "65+", emoji: "📋", label: "Projects Completed", icon: Briefcase, colorClass: "text-blue-700", bgClass: "bg-blue-50/50 border-blue-100/40" },
+  { value: "100+", emoji: "👥", label: "Students Assisted", icon: Users, colorClass: "text-purple-600", bgClass: "bg-purple-50/50 border-purple-100/40" },
+  { value: "4+", emoji: "🏅", label: "Years Experience", icon: Trophy, colorClass: "text-amber-500", bgClass: "bg-amber-50/40 border-amber-100/40" },
+  { value: "95%", emoji: "😊", label: "Student Satisfaction", icon: Smile, colorClass: "text-sky-500", bgClass: "bg-sky-50/50 border-sky-100/40" },
 ];
 
+
+  
+
 const featuredCarousel = [
-  { title: "Artificial Intelligence", subtitle: "Smart AI Solutions", tag: "AI" },
-  { title: "Machine Learning", subtitle: "Intelligent ML Models", tag: "ML" },
-  { title: "Full Stack Development", subtitle: "Modern Web Solutions", tag: "Web" },
+  { title: "Artificial Intelligence", subtitle: "Smart AI Solutions", tag: "AI",image: "/robot.png" },
+ 
+  { title: "Machine Learning", subtitle: "Intelligent ML Models", tag: "ML", image: "/brain.png" },
+  { title: "Full Stack Development", subtitle: "Modern Web Solutions", tag: "Web", image: "/fullstack.png" },
 ];
 
 const coreServices = [
-  { title: "Artificial Intelligence", items: ["Chatbots", "NLP Systems", "Computer Vision"], icon: Cpu },
-  { title: "Machine Learning", items: ["Prediction Models", "Recommendation", "Classification"], icon: Brain },
-  { title: "Data Science", items: ["Analytics Dashboards", "Data Visualization", "Big Data Projects"], icon: Database },
-  { title: "Full Stack Development", items: ["E-Commerce", "ERP Systems", "Management Systems"], icon: Code2 },
-  { title: "Mobile App Development", items: ["Android Apps", "Flutter Apps", "React Native Apps"], icon: Smartphone },
+  { title: "Artificial Intelligence", items: ["Chatbots", "NLP Systems", "Computer Vision"], icon: Cpu , color: "bg-blue-600"},
+  { title: "Machine Learning", items: ["Prediction Models", "Recommendation", "Classification"], icon: Brain,color: "bg-purple-600"}, 
+  { title: "Data Science", items: ["Analytics Dashboards", "Data Visualization", "Big Data Projects"], icon: Database,color: "bg-green-500" },
+  { title: "Full Stack Development", items: ["E-Commerce", "ERP Systems", "Management Systems"], icon: Code2,color: "bg-yellow-500"},
+  { title: "Mobile App Development", items: ["Android Apps", "Flutter Apps", "React Native Apps"], icon: Smartphone,color: "bg-pink-500" },
 ];
 
 const previousProjects = [
-  { title: "AI Attendance System", domain: "AI / VR" },
-  { title: "Smart Healthcare Prediction", domain: "Machine Learning" },
-  { title: "E-Commerce Platform", domain: "Full Stack" },
-  { title: "Student Management System", domain: "Web Development" },
-  { title: "Job Recommendation System", domain: "Data Science" },
+  { title: "AI Attendance System", domain: "AI / VR",image: "/attendance.png",color: "bg-pink-100 text-pink-600" },
+  { title: "Smart Healthcare Prediction", domain: "Machine Learning",image: "/health.png",color: "bg-purple-100 text-purple-600" },
+  { title: "E-Commerce Platform", domain: "Full Stack",image: "/ecomm.png",color: "bg-green-100 text-green-600" },
+  { title: "Student Management System", domain: "Web Development" , image: "/student.png",color: "bg-blue-100 text-blue-600"},
+  { title: "Job Recommendation System", domain: "Data Science" , image: "/job.png",color: "bg-green-100 text-green-600"},
 ];
 
 const awardCategories = [
@@ -211,18 +217,36 @@ export default function ProjectPage() {
       </section>
 
       {/* ========== TOP FEATURED CAROUSEL PREVIEW ========== */}
-      <section className="py-12 bg-white dark:bg-[#0b1329]">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-6">
+      <section className="py-20 bg-white dark:bg-[#0b1329]">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8">
           {featuredCarousel.map((item, i) => (
-            <div key={i} className="relative group rounded-2xl overflow-hidden bg-slate-900 h-48 flex items-end p-6 border border-slate-800 shadow-md">
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent z-10" />
-              <span className="absolute top-4 right-4 px-3 py-1 bg-blue-600/20 text-blue-400 text-xs font-extrabold rounded-md uppercase tracking-widest z-10">{item.tag}</span>
-              <div className="relative z-20 space-y-1 text-white">
-                <p className="text-xs text-slate-400 font-medium">{item.subtitle}</p>
-                <h3 className="text-xl font-bold group-hover:text-blue-400 transition-colors">{item.title}</h3>
-                <div className="pt-2 inline-flex items-center gap-1 text-xs font-bold text-blue-500">
-                  <span>View Projects</span> <ArrowRight size={12} />
-                </div>
+           <div
+              key={i}
+              className="relative group rounded-3xl overflow-hidden h-72 shadow-xl"
+            >
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                className="object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+              <span className="absolute top-5 right-5 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full z-10">
+                {item.tag}
+              </span>
+
+              <div className="absolute bottom-6 left-6 z-10 text-white">
+                <p className="text-sm opacity-90">{item.subtitle}</p>
+
+                <h3 className="text-2xl font-bold mt-1">
+                  {item.title}
+                </h3>
+
+                <button className="mt-4 bg-white text-blue-600 px-5 py-2 rounded-full font-semibold hover:bg-blue-50 transition">
+                  View Projects →
+                </button>
               </div>
             </div>
           ))}
@@ -245,24 +269,38 @@ export default function ProjectPage() {
               const Icon = service.icon;
               return (
                 <motion.div
-                  key={service.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -6 }}
-                  className="rounded-2xl p-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 shadow-sm hover:shadow-xl transition-all duration-300"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4">
-                    <Icon size={20} />
-                  </div>
-                  <h3 className="font-extrabold text-base text-[#0f172a] dark:text-white mb-4 min-h-[40px] flex items-center">{service.title}</h3>
-                  <ul className="space-y-2 text-xs font-medium text-slate-400">
-                    {service.items.map((item, idx) => (
-                      <li key={idx} className="truncate">• {item}</li>
-                    ))}
-                  </ul>
-                </motion.div>
+                      key={service.title}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.05 }}
+                      viewport={{ once: true }}
+                      whileHover={{ y: -5 }}
+                      className="bg-white rounded-3xl border border-gray-200 shadow-md hover:shadow-xl transition-all duration-300 text-center p-8"
+                    >
+                      {/* Icon */}
+                      <div className="flex justify-center mb-5">
+                        <div className={`w-16 h-16 rounded-full ${service.color} flex items-center justify-center shadow-lg`}>
+                          <Icon size={28} className="text-white" />
+                        </div>
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-xl font-bold text-gray-900 mb-5">
+                        {service.title}
+                      </h3>
+
+                      {/* Items */}
+                      <ul className="space-y-2">
+                        {service.items.map((item, idx) => (
+                          <li
+                            key={idx}
+                            className="text-gray-500 text-sm"
+                          >
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
               );
             })}
           </div>
@@ -277,66 +315,154 @@ export default function ProjectPage() {
             <h2 className="text-3xl lg:text-4xl font-black text-[#0f172a] dark:text-white">Quality Projects at Student-Friendly Prices</h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Academic Projects Card */}
-            <div className="rounded-3xl bg-white dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 p-8 shadow-lg relative flex flex-col justify-between">
-              <div>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider absolute top-6 right-6">
-                  Most Popular
-                </span>
-                <div className="flex items-center gap-2 mb-4">
-                  <Cpu className="text-blue-600" size={20} />
-                  <h3 className="text-xl font-extrabold text-[#0f172a] dark:text-white">Academic Projects</h3>
-                </div>
-                <div className="my-6 flex items-baseline gap-2">
-                  <p className="line-through text-slate-400 text-sm">₹10,099</p>
-                  <p className="text-4xl font-black text-blue-600 dark:text-blue-400">₹5,999</p>
-                </div>
-                <ul className="space-y-3.5 mt-6 border-t border-slate-50 dark:border-slate-800/80 pt-6">
-                  {["Project Explanation", "Documentation", "Deployment Support", "Project Training"].map((feat) => (
-                    <li key={feat} className="flex items-center gap-3 text-xs font-bold text-slate-600 dark:text-slate-300">
-                      <Check size={14} className="text-teal-500" strokeWidth={3} />
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-8">
-                <div className="bg-slate-50 dark:bg-slate-900 rounded-xl p-3 text-center font-bold text-slate-600 dark:text-slate-400 text-xs border border-slate-100 dark:border-slate-800">
-                  PPT + Project Report : <span className="text-blue-600 font-extrabold">₹1,199</span>
-                </div>
-                <button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white py-3.5 rounded-xl font-bold text-sm transition shadow-md shadow-blue-600/10">Choose Plan</button>
-              </div>
-            </div>
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
 
-            {/* Mobile App Projects Card */}
-            <div className="rounded-3xl bg-white dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 p-8 shadow-lg relative flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <Smartphone className="text-rose-500" size={20} />
-                  <h3 className="text-xl font-extrabold text-[#0f172a] dark:text-white">Mobile App Projects</h3>
+              {/* Academic Card */}
+              <div className="relative rounded-2xl overflow-hidden shadow-sm border border-[#DDE7FF] bg-gradient-to-br from-[#F7FAFF] via-[#FCFDFF] to-[#EEF4FF]">
+
+                {/* Most Popular */}
+                <div className="absolute top-4 right-0 bg-[#3457F6] text-white text-xs font-semibold px-5 py-2 rounded-l-full">
+                  Most Popular
                 </div>
-                <div className="my-6 flex items-baseline gap-2">
-                  <p className="line-through text-slate-400 text-sm">₹8,999</p>
-                  <p className="text-4xl font-black text-rose-500">₹6,999</p>
+
+                <div className="p-6">
+
+                  <div className="flex items-center gap-3">
+                    <Cpu className="text-[#14255D]" size={22} />
+                    <h3 className="text-2xl font-bold text-[#16204A]">
+                      Academic Projects
+                    </h3>
+                  </div>
+
+                  <div className="mt-6 flex items-end gap-3">
+                    <span className="line-through text-[#B7A8B8] text-3xl font-semibold">
+                      ₹10,099
+                    </span>
+
+                    <span className="text-6xl font-extrabold text-[#14193D]">
+                      ₹5,999
+                    </span>
+                  </div>
+
+                  <div className="mt-7 space-y-4">
+
+                    {[
+                      "Project Explanation",
+                      "Documentation",
+                      "Deployment Support",
+                      "Project Training",
+                    ].map((item) => (
+
+                      <div key={item} className="flex items-center gap-3">
+
+                        <Check
+                          size={18}
+                          strokeWidth={3}
+                          className="text-[#7B8DFF]"
+                        />
+
+                        <span className="text-[17px] text-[#3B3B3B]">
+                          {item}
+                        </span>
+
+                      </div>
+
+                    ))}
+
+                  </div>
+
                 </div>
-                <ul className="space-y-3.5 mt-6 border-t border-slate-50 dark:border-slate-800/80 pt-6">
-                  {["Android App", "Source Code", "Deployment Guidance"].map((feat) => (
-                    <li key={feat} className="flex items-center gap-3 text-xs font-bold text-slate-600 dark:text-slate-300">
-                      <Check size={14} className="text-rose-500" strokeWidth={3} />
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
+
+                <div className="border-t border-[#DDE7FF] bg-[#F5F8FF] px-6 py-4 flex justify-between items-center">
+
+                  <span className="font-semibold text-[#1F1F1F]">
+                    PPT + Project Report
+                  </span>
+
+                  <span className="font-bold text-2xl">
+                    ₹1,199
+                  </span>
+
+                </div>
+
               </div>
-              <div className="mt-8">
-                <div className="bg-slate-50 dark:bg-slate-900 rounded-xl p-3 text-center font-bold text-slate-600 dark:text-slate-400 text-xs border border-slate-100 dark:border-slate-800">
-                  PPT + Project Report : <span className="text-rose-500 font-extrabold">₹1,199</span>
+
+
+
+              {/* Mobile App Card */}
+
+              <div className="relative rounded-2xl overflow-hidden shadow-sm border border-[#FFD6DD] bg-gradient-to-br from-[#FFF3F5] via-[#FFF7F8] to-[#FFECEF]">
+
+                <div className="p-6">
+
+                  <div className="flex items-center gap-3">
+
+                    <Smartphone
+                      className="text-[#A3132F]"
+                      size={22}
+                    />
+
+                    <h3 className="text-2xl font-bold text-[#8E2439]">
+                      Mobile App Projects
+                    </h3>
+
+                  </div>
+
+                  <div className="mt-6 flex items-end gap-3">
+
+                    <span className="line-through text-[#D9A7AF] text-3xl font-semibold">
+                      ₹8,999
+                    </span>
+
+                    <span className="text-6xl font-extrabold text-[#C2183A]">
+                      ₹6,999
+                    </span>
+
+                  </div>
+
+                  <div className="mt-7 space-y-4">
+
+                    {[
+                      "Android App",
+                      "Source Code",
+                      "Deployment Guidance",
+                    ].map((item) => (
+
+                      <div key={item} className="flex items-center gap-3">
+
+                        <Check
+                          size={18}
+                          strokeWidth={3}
+                          className="text-[#F06077]"
+                        />
+
+                        <span className="text-[17px] text-[#444]">
+                          {item}
+                        </span>
+
+                      </div>
+
+                    ))}
+
+                  </div>
+
                 </div>
-                <button className="w-full mt-4 border-2 border-rose-500/20 dark:border-rose-500/40 hover:bg-rose-500/5 text-rose-500 py-3.5 rounded-xl font-bold text-sm transition">Choose Plan</button>
+
+                <div className="border-t border-[#FFD6DD] bg-[#FFF3F5] px-6 py-4 flex justify-between items-center">
+
+                  <span className="font-semibold text-[#1F1F1F]">
+                    PPT + Project Report
+                  </span>
+
+                  <span className="font-bold text-2xl">
+                    ₹1,199
+                  </span>
+
+                </div>
+
               </div>
+
             </div>
-          </div>
         </div>
       </section>
 
@@ -350,15 +476,22 @@ export default function ProjectPage() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {previousProjects.map((project, i) => (
-              <div key={i} className="rounded-2xl border border-slate-100 dark:border-slate-800/80 overflow-hidden bg-white dark:bg-slate-900 shadow-sm flex flex-col justify-between">
-                <div className="h-28 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-800/50 flex items-center justify-center text-3xl">
-                  📁
-                </div>
+              <div key={i} className="bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300">
+                <div className="relative h-40 w-full overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
                 <div className="p-4 space-y-3 flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="inline-block px-2 py-0.5 bg-blue-50 dark:bg-blue-900/40 text-[10px] font-extrabold text-blue-600 rounded">
-                      {project.domain}
-                    </span>
+                    <span
+                      className={`inline-block px-3 py-1 rounded-full text-[11px] font-semibold ${project.color}`}
+                        >
+                          {project.domain}
+                        </span>
                     <h3 className="font-extrabold text-sm text-[#0f172a] dark:text-white leading-snug mt-1.5">{project.title}</h3>
                   </div>
                   <div className="flex gap-2 pt-2">
@@ -380,18 +513,72 @@ export default function ProjectPage() {
       {/* ========== REFERRAL HERO BANNER STRIP ========== */}
       <section className="py-12 bg-white dark:bg-[#0b1329]">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-600 rounded-2xl p-8 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
-            <div className="space-y-2 relative z-10 max-w-xl">
-              <h2 className="text-2xl md:text-3xl font-black">Refer a Friend & Earn Money</h2>
-              <p className="text-xs md:text-sm text-white/80 font-medium">
-                Refer students who need projects and earn up to <span className="text-yellow-300 font-extrabold text-base">₹1,000</span> for every successful project.
-              </p>
-              <div className="flex flex-wrap gap-4 pt-2 text-[11px] font-extrabold tracking-wide uppercase opacity-90">
-                <span>• Unlimited Referrals</span>
-                <span>• Instant Rewards</span>
-                <span>• Student-Friendly Program</span>
-              </div>
-            </div>
+          <div className="bg-gradient-to-r from-[#2854FF] via-[#4A3BFF] to-[#7A18FF] rounded-3xl px-8 py-7 text-white shadow-xl flex items-center justify-between overflow-hidden">
+          
+           
+           <div className="grid grid-cols-12 items-center w-full gap-6">
+
+  {/* Cartoon Image */}
+  <div className="col-span-2 flex justify-center">
+    <Image
+      src="/cartoon.png"
+      alt="Refer"
+      width={300}
+      height={300}
+      className="object-contain"
+    />
+  </div>
+
+  {/* Heading */}
+  <div className="col-span-4">
+    <h2 className="text-2xl font-bold whitespace-nowrap">
+      Refer a Friend & Earn Money
+    </h2>
+
+    <p className="mt-2 text-white/90 text-lg">
+      Refer students who need projects and earn up to
+      <span className="text-yellow-300 font-bold">
+        {" "}₹1,000{" "}
+      </span>
+      for every successful project.
+    </p>
+  </div>
+
+  {/* Three Icons */}
+  <div className="col-span-4 flex justify-evenly">
+
+    <div className="text-center">
+      <div className="w-14 h-14 rounded-full border border-white/40 flex items-center justify-center mx-auto text-2xl">
+        👥
+      </div>
+
+      <p className="mt-3 text-sm font-semibold">
+        Unlimited<br />Referrals
+      </p>
+    </div>
+
+    <div className="text-center">
+      <div className="w-14 h-14 rounded-full border border-white/40 flex items-center justify-center mx-auto text-2xl">
+        🎁
+      </div>
+
+      <p className="mt-3 text-sm font-semibold">
+        Instant<br />Rewards
+      </p>
+    </div>
+
+    <div className="text-center">
+      <div className="w-14 h-14 rounded-full border border-white/40 flex items-center justify-center mx-auto text-2xl">
+        🏆
+      </div>
+
+      <p className="mt-3 text-sm font-semibold">
+        Student-Friendly<br />Program
+      </p>
+    </div>
+
+  </div>
+            
             <div className="relative z-10">
               <button
                 onClick={handleReferNow}
@@ -406,6 +593,7 @@ export default function ProjectPage() {
               )}
             </div>
           </div>
+        </div>
         </div>
       </section>
 
